@@ -40,6 +40,8 @@ jobs:
         run: |-
           echo "${{ secrets.GH_SECRET_KEY }}" > secret
           chmod 600 secret
+          pwd
+          ls -al
 
           git clone git@github.com:TOnodera/config-for-helm-sample.git
           cd config-for-helm-sample/gitops-helm
