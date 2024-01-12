@@ -35,6 +35,9 @@ jobs:
           docker image push ${{ secrets.DH_USERNAME }}/gitops-go-app:${{ github.run_number }}
 
       - name: Update values.yaml & Pull Request to Config Repository
+        env:
+          GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
         run: |-
           # clone repo
           echo -e "machine github.com\nlogin ${{ secrets.GH_USERNAME }}\npassword ${{ secrets.GH_PASSWORD }}" > ~/.netrc
@@ -56,8 +59,6 @@ jobs:
           git push origin feature/${{ github.run_number }}
 
           # create  pull request
-          echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
-          gh auth login --with-token < token.txt
           gh pr create --title 'Update Tag ${{ github.run_number }}' --body "Please Merge!!"
 
 
