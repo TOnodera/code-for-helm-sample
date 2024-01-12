@@ -12,6 +12,7 @@ jobs:
         
       - name: Build an image from Dockerfile 
         run: |-
+          pwd
           DOCKER_BUILDKIT=1 docker image build . -f app/Dockerfile --tag ${{ secrets.DH_USERNAME }}/gitops-go-app:${{ github.run_number }}
 
       - name: Run Trivy vulnerability scanner
