@@ -36,12 +36,10 @@ jobs:
 
       - name: Update values.yaml & Pull Request to Config Repository
         env:
-          GIT_SSH_COMMAND: ssh -i ./secret -o StrictHostKeyChecking=no -F /dev/null
+          GIT_SSH_COMMAND: ssh -i ~/secret -o StrictHostKeyChecking=no -F /dev/null
         run: |-
-          echo "${{ secrets.GH_SECRET_KEY }}" > secret
-          chmod 600 secret
-          pwd
-          ls -al
+          echo "${{ secrets.GH_SECRET_KEY }}" > ~/secret
+          chmod 600 ~/secret
 
           git clone git@github.com:TOnodera/config-for-helm-sample.git
           cd config-for-helm-sample/gitops-helm
