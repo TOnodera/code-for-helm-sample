@@ -63,6 +63,9 @@ jobs:
         with:
           repository: ${{ secrets.GH_USERNAME }}/config-for-helm-sample
           path: code-for-helm-sample
+
+      - name: test
+        run: ls -al
           
 
 
