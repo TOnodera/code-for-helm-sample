@@ -12,7 +12,7 @@ jobs:
         
       - name: Build an image from Dockerfile 
         run: |-
-          DOCKER_BUILDKIT=1 docker image build . -f App/Dockerfile --tag ${{ secrets.DH_USERNAME }}/gitops-go-app:${{ github.run_number }}
+          DOCKER_BUILDKIT=1 docker image build . -f app/Dockerfile --tag ${{ secrets.DH_USERNAME }}/gitops-go-app:${{ github.run_number }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -25,7 +25,7 @@ jobs:
 
       - name: Push Image to Docker Hub
         run: |-
-          docker login docker.io --username ${{ secrets.DH_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+          docker login docker.io --username ${{ secrets.DH_USERNAME }} --password ${{ secrets.DH_PASSWORD }}
           docker image push ${{ secrets.USERNAME }}/gitops-go-app:${{ github.run_number }}
 
       - name: Update values.yaml & Pull Request to Config Repository
