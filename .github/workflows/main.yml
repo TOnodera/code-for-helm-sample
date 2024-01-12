@@ -44,7 +44,7 @@ jobs:
       - name: Update values.yaml & Pull Request to Config Repository
         run: |-
           # update values.yaml in new branch
-          cd gitops-helm 
+          cd ./config-for-helm-sample/gitops-helm 
           git branch feature/${{ github.run_number }}
           git checkout feature/${{ github.run_number }}
           sed -i 's/tag: [0-9]*/tag: ${{ github.run_number }}/g' values.yaml
