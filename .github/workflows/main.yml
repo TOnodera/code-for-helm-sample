@@ -45,6 +45,8 @@ jobs:
         run: |-
           # update values.yaml in new branch
           cd ./config-for-helm-sample/gitops-helm 
+          git config --global user.email "${{ secrets.EMAIL }}"
+          git config --global user.name "${{ secrets.GH_USERNAME }}"
           git branch feature/${{ github.run_number }}
           git checkout feature/${{ github.run_number }}
           sed -i 's/tag: [0-9]*/tag: ${{ github.run_number }}/g' values.yaml
@@ -52,8 +54,11 @@ jobs:
           # git push
           git add values.yaml
           git commit -m "Update tag ${{ github.run_number }}"
+          git push origin feature/${{ github.run_number }}
 
           # create  pull request
+          echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} > token.txt
+          gh auth login --with-token < token.txt
           gh pr create --title 'Update Tag ${{ github.run_number }}' --body "Please Merge!!"
 
 
